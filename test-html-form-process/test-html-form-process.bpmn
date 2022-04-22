@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0t97mwx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="test-html-form-process" name="test-html-form-process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" camunda:formKey="embedded:deployment:test-form.html">
+      <bpmn:outgoing>Flow_0rcmkka</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0rcmkka" sourceRef="StartEvent_1" targetRef="ut-task1" />
+    <bpmn:endEvent id="Event_1ayxfls">
+      <bpmn:incoming>Flow_01lvugg</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_01lvugg" sourceRef="ut-task1" targetRef="Event_1ayxfls" />
+    <bpmn:userTask id="ut-task1" name="Task 1" camunda:formKey="embedded:deployment:test-form.html">
+      <bpmn:incoming>Flow_0rcmkka</bpmn:incoming>
+      <bpmn:outgoing>Flow_01lvugg</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="test-html-form-process">
+      <bpmndi:BPMNEdge id="Flow_0rcmkka_di" bpmnElement="Flow_0rcmkka">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01lvugg_di" bpmnElement="Flow_01lvugg">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="432" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ayxfls_di" bpmnElement="Event_1ayxfls">
+        <dc:Bounds x="432" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_07i0xr8_di" bpmnElement="ut-task1">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

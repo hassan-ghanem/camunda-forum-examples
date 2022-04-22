@@ -1,0 +1,115 @@
+<form class="form-horizontal"
+      role="form" name="frmTestForm" novalidate>
+    
+    <script cam-script type="text/form-script">
+	
+	inject([ '$rootScope', '$scope', function($rootScope, $scope) {
+
+        $scope.newTestForm = {};
+		
+        $scope.newTestForm.isPnFormHeader = true;
+		$scope.newTestForm.isPnFormHeaderOpen = true;
+		
+		$scope.newTestForm.isPnAssigneeActionVisible = false;
+		$scope.newTestForm.isPnAssigneeActionDisabled = true;
+        $scope.newTestForm.isPnAssigneeActionOpen = false;
+		       
+		var variableManager = camForm.variableManager;
+		var taskService = camForm.client.resource('task');
+		  
+		$scope.loggedInUser = $rootScope.authentication.name;
+				
+		camForm.on('form-loaded', function () {
+		
+			if (!camForm.taskId) {
+				// start form
+				
+				$scope.testBusinessObject = {};
+			
+				camForm.variableManager.createVariable({
+					name: 'testBusinessObject',
+					type: 'json',
+					value: $scope.testBusinessObject
+				});
+				
+			} else {
+				// task form
+				
+				// tell the form SDK to fetch the json variable name 'testBusinessObject'
+				variableManager.fetchVariable('testBusinessObject');
+			}
+		});
+		
+		camForm.on('variables-fetched', function () {
+		
+			if (camForm.taskId) {
+				// task form
+		
+				taskService.get(camForm.taskId, function (err, task) {
+					// console.log(JSON.stringify(task));
+					
+					switch (task.taskDefinitionKey) {
+						case "ut-task1":
+							// only visible for ut-task1 
+					        $scope.newTestForm.isPnAssigneeActionVisible = true;
+							$scope.newTestForm.isPnAssigneeActionDisabled = false;
+							$scope.newTestForm.isPnAssigneeActionOpen = true;
+							
+					        break;
+					
+						default:
+							$scope.newTestForm.isPnAssigneeActionVisible = false;
+							$scope.newTestForm.isPnAssigneeActionDisabled = true;
+							$scope.newTestForm.isPnAssigneeActionOpen = false;
+					}
+				});
+			}
+		});
+		
+		camForm.on('variables-restored', function() {
+			// work with the variable (bind it to the current angularJS $scope)
+			$scope.testBusinessObject = variableManager.variable('testBusinessObject').value;
+		});
+		
+	}]);
+    </script>
+  
+	<div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading" ng-click='newTestForm.isPnFormHeaderOpen = !newTestForm.isPnFormHeaderOpen'>
+                <h5 class="panel-title">
+					<span class="pull-right" ng-class="{'glyphicon glyphicon-menu-up':newTestForm.isPnFormHeaderOpen, 'glyphicon glyphicon-menu-down':!newTestForm.isPnFormHeaderOpen}" aria-hidden="true"></span>
+					Test Form
+                </h5>
+            </div>
+            <div class='panel-collapse collapse' ng-class="{'in' : newTestForm.isPnFormHeaderOpen}">
+                <div class="panel-body">
+                   <fieldset>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label for="txtTestField" class="control-label">Test Field</label>
+                                <input class="form-control" name="txtTestField" ng-model="testBusinessObject.testField" placeholder="Test Field" type="text" />
+                            </div>
+						</div>
+					</fieldset>
+                </div>
+            </div>
+        </div>
+		
+		<div class="panel panel-default" ng-if="newTestForm.isPnAssigneeActionVisible">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+					<span class="pull-right" ng-class="{'glyphicon glyphicon-menu-up':newTestForm.isPnAssigneeActionOpen, 'glyphicon glyphicon-menu-down':!newTestForm.isPnAssigneeActionOpen}" aria-hidden="true"></span>
+                    Assignee Action
+                </h4>
+            </div>
+            <div class='panel-collapse collapse' ng-class="{'in' : newTestForm.isPnAssigneeActionOpen}">
+                <div class="panel-body">
+                    Assignee Action Details
+                </div>
+            </div>
+        </div>
+		
+    </div>
+	
+</form>
