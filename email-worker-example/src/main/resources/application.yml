@@ -1,0 +1,11 @@
+camunda.bpm.client:
+  base-url: http://localhost:8080/engine-rest # The URL pointing to the Camunda Platform Runtime REST API
+  #async-response-timeout: 500 # Defines the maximum duration of the long-polling request
+  disable-backoff-strategy: true
+  worker-id: email-worker # Identifies the worker towards the Engine
+  
+simplejavamail.smtp:
+  host: smtp.gmail.com
+  port: 587
+  username: test@gmail.com
+  password: xxxYYY
