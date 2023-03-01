@@ -38,7 +38,7 @@ public class EmailHandler implements ExternalTaskHandler {
 		List<String> to;
 
 		JsonValue jsonTemplateData;
-		HashMap<String, String> templateData;
+		HashMap<String, String> templateData = null;
 
 		ObjectMapper mapper;
 
@@ -57,7 +57,10 @@ public class EmailHandler implements ExternalTaskHandler {
 			mapper = new ObjectMapper();
 
 			to = mapper.readValue(jsonTo.getValue(), new TypeReference<List<String>>() {});
-			templateData = mapper.readValue(jsonTemplateData.getValue(), new TypeReference<HashMap<String, String>>() {});
+			
+			if (jsonTemplateData != null) {
+				templateData = mapper.readValue(jsonTemplateData.getValue(), new TypeReference<HashMap<String, String>>() {});
+			}
 
 			emailService.sendHTMLText(subject, from, to, templateFile, templateContent, templateData);
 
