@@ -18,6 +18,15 @@ public class FreemarkerConfig {
 		cfg.setDefaultEncoding(ENCODING);
 		cfg.setClassForTemplateLoading(FreemarkerConfig.class, TEMPLATES_PATH);
 		
+		/*
+		 * https://freemarker.apache.org/docs/pgui_config_templateloading.html#autoid_41
+		 * 
+		 * If your template source accesses the templates through an URL, you needn't
+		 * implement a TemplateLoader from scratch; you can choose to subclass
+		 * freemarker.cache.URLTemplateLoader instead and just implement the URL
+		 * getURL(String templateName) method.
+		 */
+		
 		return cfg;
 	}
 }
