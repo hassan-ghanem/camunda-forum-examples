@@ -1,5 +1,6 @@
 package org.example.configuration;
 
+import org.example.freemarker.DropboxURLTemplateLoader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,13 +11,16 @@ public class FreemarkerConfig {
 	public freemarker.template.Configuration freemarkerConfiguration() {
 		
 		final String ENCODING = "UTF-8";
-		final String TEMPLATES_PATH = "/templates";
+		// final String TEMPLATES_PATH = "/templates";
 		
 		freemarker.template.Configuration cfg;
 		
 		cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_31);
 		cfg.setDefaultEncoding(ENCODING);
-		cfg.setClassForTemplateLoading(FreemarkerConfig.class, TEMPLATES_PATH);
+		cfg.setLocalizedLookup(false);
+		// cfg.setClassForTemplateLoading(FreemarkerConfig.class, TEMPLATES_PATH);
+		
+		cfg.setTemplateLoader(new DropboxURLTemplateLoader());
 		
 		/*
 		 * https://freemarker.apache.org/docs/pgui_config_templateloading.html#autoid_41
