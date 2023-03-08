@@ -9,3 +9,8 @@ simplejavamail.smtp:
   port: 587
   username: test@gmail.com
   password: xxxYYY
+
+dropbox:
+  download-files-url: https://content.dropboxapi.com/2/files/download
+  templates-path: /Email Templates/
+  access-token: Bearer sl.BaCXXXXXXX

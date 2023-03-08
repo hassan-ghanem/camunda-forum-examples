@@ -14,9 +14,16 @@ public class DropboxURLTemplateLoader extends URLTemplateLoader {
 
 	protected static final Logger LOG = LoggerFactory.getLogger(DropboxURLTemplateLoader.class);
 
-	private final String DROPBOX_DOWNLOAD_FILE_URL = "https://content.dropboxapi.com/2/files/download";
-	private final String TEMPLATES_PATH = "/Email Templates/";
-	private final String TOKEN = "Bearer sl.BaCXXXXXXX";
+	private String downloadFilesUrl;
+	private String templatesPath;
+	private String dropboxToken;
+
+	public DropboxURLTemplateLoader(String downloadFilesUrl, String templatesPath, String dropboxToken) {
+
+		this.downloadFilesUrl = downloadFilesUrl;
+		this.templatesPath = templatesPath;
+		this.dropboxToken = dropboxToken;
+	}
 
 	@Override
 	protected URL getURL(String name) {
@@ -25,7 +32,7 @@ public class DropboxURLTemplateLoader extends URLTemplateLoader {
 
 		try {
 
-			url = new URL(null, DROPBOX_DOWNLOAD_FILE_URL, new URLStreamHandler() {
+			url = new URL(null, downloadFilesUrl, new URLStreamHandler() {
 
 				@Override
 				protected URLConnection openConnection(URL u) throws IOException {
@@ -36,8 +43,8 @@ public class DropboxURLTemplateLoader extends URLTemplateLoader {
 					target = new URL(u.toString());
 					connection = target.openConnection();
 
-					connection.setRequestProperty("Authorization", TOKEN);
-					connection.setRequestProperty("Dropbox-API-Arg", "{\"path\": \"" + TEMPLATES_PATH + name + "\"}");
+					connection.setRequestProperty("Authorization", dropboxToken);
+					connection.setRequestProperty("Dropbox-API-Arg", "{\"path\": \"" + templatesPath + name + "\"}");
 
 					return connection;
 				}

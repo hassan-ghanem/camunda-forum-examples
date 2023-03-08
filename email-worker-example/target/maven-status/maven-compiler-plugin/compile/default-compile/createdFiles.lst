@@ -1,5 +1,5 @@
-org\example\email\EmailService.class
 org\example\Application.class
-org\example\EmailHandler$2.class
 org\example\EmailHandler$1.class
+org\example\email\EmailService.class
+org\example\EmailHandler$2.class
 org\example\EmailHandler.class

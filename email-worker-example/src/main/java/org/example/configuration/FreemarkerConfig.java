@@ -1,12 +1,24 @@
 package org.example.configuration;
 
 import org.example.freemarker.DropboxURLTemplateLoader;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
+@PropertySource("classpath:application.yml")
 public class FreemarkerConfig {
 
+	@Value("${dropbox.download-files-url}")
+	private String downloadFilesUrl;
+	
+	@Value("${dropbox.templates-path}")
+	private String templatesPath;
+	
+	@Value("${dropbox.access-token}")
+	private String dropboxToken;
+	
 	@Bean
 	public freemarker.template.Configuration freemarkerConfiguration() {
 		
@@ -20,7 +32,7 @@ public class FreemarkerConfig {
 		cfg.setLocalizedLookup(false);
 		// cfg.setClassForTemplateLoading(FreemarkerConfig.class, TEMPLATES_PATH);
 		
-		cfg.setTemplateLoader(new DropboxURLTemplateLoader());
+		cfg.setTemplateLoader(new DropboxURLTemplateLoader(downloadFilesUrl, templatesPath, dropboxToken));
 		
 		/*
 		 * https://freemarker.apache.org/docs/pgui_config_templateloading.html#autoid_41
