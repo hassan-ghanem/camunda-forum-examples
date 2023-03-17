@@ -56,8 +56,6 @@ public class EmailService {
 
 			} else {
 
-				// test.ftlh
-				// templateFile = "test"
 				template = freemarkerConfiguration.getTemplate(templateFile);
 			}
 
