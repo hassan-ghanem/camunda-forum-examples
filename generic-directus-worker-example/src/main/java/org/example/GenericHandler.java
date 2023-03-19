@@ -68,7 +68,7 @@ public class GenericHandler {
 				id = externalTask.getVariable(ID);
 				jsonData = externalTask.getVariableTyped(JSON_DATA);
 				
-				this.directusUpdate(collection, id, jsonData).asJson();
+				this.directusUpdate(collection, id, jsonData).asEmpty();
 				
 				externalTaskService.complete(externalTask);
 	
