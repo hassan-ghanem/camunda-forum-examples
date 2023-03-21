@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+import kong.unirest.Empty;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.RequestBodyEntity;
@@ -62,13 +63,20 @@ public class GenericHandler {
 			String collection;
 			JsonValue jsonData;
 			
+			HttpResponse<Empty> response;
+			
 			try {
 				
 				collection = externalTask.getVariable(COLLECTION);
 				id = externalTask.getVariable(ID);
 				jsonData = externalTask.getVariableTyped(JSON_DATA);
 				
-				this.directusUpdate(collection, id, jsonData).asEmpty();
+				response = this.directusUpdate(collection, id, jsonData).asEmpty();
+				
+				if (response.getStatus() >= 400) {
+					
+					throw new Exception(response.getStatusText());
+				}
 				
 				externalTaskService.complete(externalTask);
 	
@@ -102,6 +110,11 @@ public class GenericHandler {
 				jsonData = externalTask.getVariableTyped(JSON_DATA);
 				
 				jsonResponse = this.directusUpdate(collection, id, jsonData).asJson();
+				
+				if (jsonResponse.getStatus() >= 400) {
+					
+					throw new Exception(jsonResponse.getStatusText());
+				}
 				
 				localVariables = new HashMap<>();
 				
