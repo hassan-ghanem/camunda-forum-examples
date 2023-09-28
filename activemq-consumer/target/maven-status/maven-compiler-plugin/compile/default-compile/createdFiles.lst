@@ -1,0 +1,3 @@
+org\example\Application.class
+org\example\CustomType.class
+org\example\ActiveMQMsgConsumerRoute.class
