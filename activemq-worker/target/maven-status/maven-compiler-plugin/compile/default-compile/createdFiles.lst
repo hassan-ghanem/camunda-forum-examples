@@ -1,0 +1,4 @@
+org\example\ActiveMQHandler.class
+org\example\configuration\SenderConfig.class
+org\example\Application.class
+org\example\Sender.class

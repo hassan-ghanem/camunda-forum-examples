@@ -1,0 +1,7 @@
+camunda.bpm.client:
+  base-url: http://localhost:8080/engine-rest # The URL pointing to the Camunda Platform Runtime REST API
+  #async-response-timeout: 500 # Defines the maximum duration of the long-polling request
+  disable-backoff-strategy: true
+  worker-id: activemq-worker # Identifies the worker towards the Engine
+
+activemq.broker-url: tcp://localhost:61616
